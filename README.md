@@ -33,3 +33,10 @@ Before we go into the code, let's set up our development environment.
 ![project](/images/mern.jpg)
 
 ![project2](/images/mern2.jpg)
+
+4. **Connecting to the Instance**: To connect to the instance, I implemented the Terminal windows app for this and I ran:
+
+```bash
+ssh -i "ssh-key.pem" ubuntu@<instance:IP>
+```
+
