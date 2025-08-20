@@ -981,9 +981,20 @@ Now let us bring together all the pieces built in the previouus steps, by (what 
 
 1. **Start the App**: Navigate back to your Todo directory and run:
 
-``bash
+```bash
 npm run dev
 ```
+![project38](/images/mern38.jpg)
+
+This command helps us in starting both our backend and frontend concurrently.
+
+2. View the App in Your Browser: Open your web browser and navigate to your EC2 instance's public IP address on port 3000. You should see your beautiful To-Do app ready for to start taking or deleting todo entries, cool right? I know :
+
+![project39](/images/mern39.jpg)
+
+## Conclusion:
+
+We have built a full-stack MERN application from scratch. So far, these are the things that we did to make this possible
 
 
 
