@@ -109,7 +109,7 @@ npm install dotenv
 
 ![project9](/images/mern9.jpg)
 
-4. **Setting Up index.js**: Open up index.js and let us pour some life into our application (i.e: a little bit functional):
+4. **Setting Up index.js**: Open up index.js and 
 
 ```bash
 vi index.js
@@ -209,7 +209,7 @@ npm install  mongoose
 2. Create the Model:
 
 ```bash
-mkdir models && cd models && touch todo.ja
+mkdir models && cd models && touch todo.js
 ```
 ![project16](/images/mern16.jpg)
 
@@ -278,242 +278,19 @@ Okay! Now, we have set up our routes to interact with our MongoDB database using
 
 For our database, we'll be using MongoDB Atlas, a cloud-based database service that will host our To-Do items. Here's how to set it up:
 
-1. Create a MongoDB Account and Cluster inside mLab (or Atlas - they are the same thing):
+1. **Create a MongoDB Account and Cluster** inside mLab (or Atlas - they are the same thing):
  - Sign up for a free account on MongoDB Atlas.
- - MERN_Stack/
-Name	Last commit message	Last commit date
-..
-images
-Completed the MERN Stack Implemementation
-11 months ago
-self_study
-Completed the MERN Stack Implemementation
-11 months ago
-README.md
-Completed the MERN Stack Implemementation
-11 months ago
-README.md
-MERN Web Stack Implementation in AWS
-Introduction
-The MERN stack (MongoDB, Express, React, and Node.js) is a popular technology stack used to build robust, full-stack JavaScript web applications. This study guide will walk you through setting up a basic project using the MERN stack, covering installation, environment configuration, and key components of a to-do app. The project highlights essential skills for developing, testing, and deploying web applications using the stack.
-
-Prerequisites
-Before we proceed, ensure you have the following software installed:
-
-MongoDB: This is a No SQL database that offers flexible, document-based storage.
-Express.js: This framework that helps Node.js to communicate, it helps in simplifying the creation of robust APIs and web applications.
-React.js: This is the framework that holds the front-end together, and in place. Here, we can paint interactive user interfaces with the great efficiency.
-Node.js: This one is the backstage software that helps in orchestrating server-side JavaScript execution efficiently.
-Now, we have known what we need to have in place inorder to be able to start, now let's go in.
-
-Step 0: Setting the environment for development
-Before we go into the code, let's set up our development environment.
-
-Launching the EC2 Instance: We're going for the t3.small instance running Ubuntu 24.04 LTS (HVM) in the us-east-2 region. Why, because:
-It has more memory than its smaller sibling, (the t2.micro) and it is perfect for our memory-hungry todo-app.
-It has a flexible burst model that allows for sustained performance during those intense coding sessions.
-It offers better baseline performance, thus, giving our applications the boost they need.
-Lunch Instance
-
-SSH Key: We've attached our ssh-key to access the instance - whilst creating the instance. This helps us to access the instance securely without the need for a password.
-
-Security Group Configuration: When we are creating the instance, we set up a digital bouncer (the security group) to allow the right traffic in:
-
-Port 80 (HTTP): The front door for web traffic.
-Port 443 (HTTPS): The secure entrance for those who value privacy.
-Port 22 (SSH): Our backdoor for maintenance.
-Ports 5000 and 3000: These ports were not enabled at first, but later during the course of deploying the app, was opened. Security Rules
-Connecting to the Instance: To connect to the instance, I implemented the Terminal windows app for this and I ran:
-
-ssh -i "ssh-key.pem" ubuntu@<instance:IP>
-Connect to instance
-
-And it will load a short while, and take you into your digital environment for some serious MERN stack activity.
-
-Step 1 - Backend Configuration: This is where we start planning out the logic
-Now that we have set the environment, it's time to start building the backbone of our application. Let's go into the backend configuration, where we would start putting in some fun logic!
-
-Updating and Upgrading: To get our backend environment started, we have to first install Node. To begin, let's make sure our server is up-to-date with the latest packages.
-sudo apt update && sudo apt upgrade -y
-Update Packages
-
-Introducing Node.js: Now, we would have to install the first software which is going to be Nodejs by grabbing it from the Ubuntu repositories using this command (below):
-curl fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-Nodejs repository
-
-Installing Node.js: With a simple command, we can both install Node.js and npm (Node Package Manager). npm acts like apt in terms of managing repository.:
-sudo apt-get install nodejs -y
-Install nodejs
-
-Verifying the Installation: Let us make sure our new tools are ready to be used (by running these commands):
-node -v
-npm -v
-Cool, now that we have all the necessary prerequisites set up, its now, let's start building our application!
-
-Application Code Setup:
-Creating the Project Directory: Create a new directory for the Todo project and switch it. Then initialize the project directory
-mkdir Todo && ls && cd Todo
-npm init
-This creates a package.json file, which will be the blueprint for our project, it contains a list of all its dependencies and scripts.
-
-Installing Express:
-Express is a framework for Node.js. It simplifies development and abstracts a lot of low level details. For example, express helps to define routes of your application based on HTTP methods and URLs.
-
-Install Express using npm:
-npm install express
-Create the Entry Point: Let's create an index.js file, this would be the starting point of our application and run ls to confirm the existence of the file:
-#Note: the location where you are to create all these is in your `Todo` directory.
-touch index.js && ls
-Install dotenv: This module is very important, as it will help us manage environment variables (keeping them secret in the app.):
-npm install dotenv
-Setting Up index.js: Open up index.js and let us pour some life into our application (i.e: a little bit functional):
-vim index.js
-Paste in this code:
-
-const express = require('express');
-require('dotenv').config();
-
-const app = express();
-
-const port = process.env.PORT || 5000;
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-app.use((req, res, next) => {
-  res.send('Welcome to Express');
-});
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-index.js code
-
-Start the Server: Let us start the server and see if it works as planned.
-node index.js
-Start server
-
-Now, if you navigate to http://54.175.65.60:5000 in your browser, you should see your Express application live!
-
-Express page
-
-Congratulations! At this point, you have just set up the skeleton of the backend. In the next sections, we would be putting some flesh on it with routes, models, and connect it to a database.
-
-Routes: Mapping the Path to Success
-Now that we have our basic Express server up and running, it's time to add some structure to our application. We are going to create routes that will handle the three main actions of our To-Do app:
-
-Creating a new task
-Displaying a list of all tasks
-Deleting a completed task
-These actions will be tied to specific endpoints (i.e: touch points for communications between two or more systems) and they would use different HTTP methods: POST, GET, and DELETE to crud senesitive databases and or collection
-
-Create the Routes Directory:
-mkdir routes && cd routes && touch api.js
-Set Up the Routes: Open api.js and add the following code:
-const express = require('express');
-const router = express.Router();
-
-router.get('/todos', (req, res, next) => {
-  // This will handle GET requests to retrieve all todos
-});
-
-router.post('/todos', (req, res, next) => {
-  // This will handle POST requests to add a new todo
-});
-
-router.delete('/todos/:id', (req, res, next) => {
-  // This will handle DELETE requests to remove a specific todo
-});
-
-module.exports = router;
-Route
-
-Cool! Now that we have laid out the blueprint for our API routes. But these routes don't do anything yet. To bring them to life, we need to create models that will interact with our database.
-
-Models: Blueprinting Our Data
-Models are the heart of any JavaScript-based application. They define the structure of the data we will be working with and how it's stored in the database. For our To-Do app, we will use Mongoose to create a schema and model for our tasks.
-
-Install Mongoose:
-cd .. # Move back to the Todo directory
-npm install mongoose
-Mongoose
-
-Create the Model:
-mkdir models && cd models && touch todo.js
-Create Models Dir and files inside
-
-Open todo.js and add the following code:
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-// Create schema for todo
-const TodoSchema = new Schema({
-  action: {
-    type: String,
-    required: [true, 'The todo text field is required']
-  }
-});
-
-// Create model for todo
-const Todo = mongoose.model('todo', TodoSchema);
-
-module.exports = Todo;
-Todo.js contents - schema 
-
-Update the Routes: Now that we have our model, let's update our routes to use it. Open routes/api.js and replace its contents with:
-const express = require('express');
-const router = express.Router();
-const Todo = require('../models/todo');
-
-router.get('/todos', (req, res, next) => {
-  // This will return all the data, exposing only the id and action field to the client
-  Todo.find({}, 'action')
-    .then(data => res.json(data))
-    .catch(next);
-});
-
-router.post('/todos', (req, res, next) => {
-  if (req.body.action) {
-    Todo.create(req.body)
-      .then(data => res.json(data))
-      .catch(next);
-  } else {
-    res.json({
-      error: "The input field is empty"
-    });
-  }
-});
-
-router.delete('/todos/:id', (req, res, next) => {
-  Todo.findOneAndDelete({"_id": req.params.id})
-    .then(data => res.json(data))
-    .catch(next);
-});
-
-module.exports = router;
-Router update
-
-Okay! Now, we have set up our routes to interact with our MongoDB database using Mongoose. But we haven't actually set up our database yet. Let's do that next!
-
-MongoDB Database: Our Data's New Home
-For our database, we'll be using MongoDB Atlas, a cloud-based database service that will host our To-Do items. Here's how to set it up:
-
-Create a MongoDB Account and Cluster inside mLab (or Atlas - they are the same thing):
-- Sign up for a free account on MongoDB Atlas.
-- Create a new cluster in the AWS cloud, choosing the Paris (eu-west-3) region.
-- For testing purposes, we'll allow access from anywhere (not recommended for production!).
+ - Create a new cluster in the AWS cloud, choosing the Paris (eu-west-3) region.
+ - For testing purposes, we'll allow access from anywhere (not recommended for production!).
 
 ![project19](/images/mern19.jpg)
 
 ![project20](/images/mern20.jpg)
 
-2. Create Database and Collection:
+2. **Create Database and Collection:**
 - Create a database named todo_db.
 - Inside it, create a collection named todos.
+
 ![project21](/images/mern21.jpg)
 
 3. **Set Up Environment Variables**: Create a .env file in your Todo directory:
@@ -581,19 +358,19 @@ node index.js
 
 Now that we've set up our backend, it's time to put it to several tests. We'll use Postman, a powerful API testing tool, to ensure our endpoints are working correctly. Let's go!
 
-1. Open Postman and Set the Header: We would be sending requests to http://13.48.130.79:5000/api/todos
+1. **Open Postman and Set the Header**: We would be sending requests to http://13.48.130.79:5000/api/todos
 
 ![project24](/images/mern24.jpg)
 
-2. Make GET Requests: Now, let's retrieve all our tasks:
+2. *Make **GET** Requests*: Now, let's retrieve all our tasks:
 
 ![project25](/images/mern25.jpg)
 
-3. Check Database Collections: Now, Let's look into our MongoDB to see if our tasks have been saved:
+3. **Check Database Collections**: Now, Let's look into our MongoDB to see if our tasks have been saved:
 
 ![project26](/images/mern26.jpg)
 
-4. Create DELETE Requests: Time to cross off a completed task:
+4. *Create **DELETE** Requests*: Time to cross off a completed task:
 
 ![project27](/images/mern27.jpg)
 
