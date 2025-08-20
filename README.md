@@ -447,7 +447,7 @@ Now, from your Todo directory, you can start both your backend and frontend with
 
 ```bash
 npm run dev
----
+```
 ![project33](/images/mern33.jpg)
 
 Your app should now be running on localhost:3000. Remember, we have opened port 3000 on our EC2 instance, (ensure you have this port open in yours too. You can achieve this by going to your Ec2 instance page -> select your instance -> click on the Security tab -> click on your security group displayed there -> click on 'Edit inbound rule' -> add a new record: This record is a custom TCP record that you would have to specify that port 3000 should be open for connection from any location) so you can access your app from the internet.
